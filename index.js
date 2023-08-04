@@ -1,20 +1,17 @@
 require('dotenv').config()
 
-/*
-Dar primera instrucción a nuestra compu para que quede escuchando peticiones en un determinado puerto 1- solicitar un módule http
-*/
-const http = require("http")
+const express = require('express')
+const app = express()
+const port = process.env.PORT
 
-//función controladora 
-function requestController (){
-    console.log("recibimos una nueva requestaa!!!")
-}
 
-// creamos servidor con esa librería
-// configurar el server
-const server = http.createServer(requestController)
-
-const PORT = process.env.PORT
-server.listen(PORT, function (){
-    console.log("aplicación corriendo en puerto: " + PORT)
+// Servir archivos estáticos
+app.use(express.static('public'))
+// Configurar rutas
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+// poner a escuchar la app en un puerto
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
 })
